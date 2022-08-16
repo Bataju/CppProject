@@ -30,7 +30,7 @@ public:
 			{
 				switch (Game::event.key.keysym.sym)
 				{
-				case SDLK_s:
+				case SDLK_KP_ENTER:
 					startMapMovement = true;
 					break;
 				case SDLK_h:
@@ -81,7 +81,7 @@ public:
 				{
 					switch (Game::event.key.keysym.sym)
 					{
-					case SDLK_s:
+					case SDLK_KP_ENTER:
 						startMapMovement = true;
 						break;
 					case SDLK_h:

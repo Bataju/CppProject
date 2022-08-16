@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ExternalIncludePath>E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\SDL2_image-2.0.1\include;E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\SDL2\include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\SDL2_image-2.0.1\lib\x86;E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\SDL2\lib\x86;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>C:\Requirements\SDL2_image-2.0.1\include;C:\Requirements\SDL2\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>C:\Requirements\SDL2_image-2.0.1\lib\x86;C:\Requirements\SDL2\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ExternalIncludePath>C:\Hogwarts_0.3\SDL2_image-2.0.1\include;C:\Hogwarts_0.3\SDL2\include;$(ExternalIncludePath)</ExternalIncludePath>
@@ -84,12 +84,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\SDL2_image-2.0.1\include;E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Requirements\SDL2_image-2.0.1\include;C:\Requirements\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\SDL2_image-2.0.1\lib\x86;E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Requirements\SDL2\lib\x86;C:\Requirements\SDL2_image-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
