@@ -13,9 +13,11 @@ int updateCounter = 0;
 int tempXBall;
 int tempYBall;
 bool startMapMovement = false;
+bool ballMoving = false;
 
 SDL_Renderer* Game::renderer = nullptr;            //we can reassign
 SDL_Event Game::event;
+
 SDL_Texture* Game::startTexture = nullptr;
 SDL_Texture* Game::finishTexture = nullptr;
 SDL_Rect srcStart = { 0, 0, 200,640 };
@@ -70,30 +72,30 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 		renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer)
 		{
-			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 		}
 
 		isRunning = true;
 	}
 	
 	map = new Map();
-	for(int i=0;i<2;i++)
+	for (int i = 0; i < 2; i++)
 	{
 		//Map::LoadMap("gameLoop/dev/startEnd.map", 4, 10, 0);
-		Map::LoadMap("gameLoop/dev/pixel_16x16.map", 25, 10,i);
+		Map::LoadMap("gameLoop/dev/pixel_16x16.map", 25, 10, i);
 		//Map::LoadMap("gameLoop/dev/startEnd.map", 4, 10, 2);
 	}
-	
+
 	//player
-	Player.addComponent<TransformComponent>(100,100,32,32,2);   //player component render
-	Player.addComponent<SpriteComponent>("gameLoop/gfx/harryfly1-4.png",true);
+	Player.addComponent<TransformComponent>(80, 85, 200, 200, 0.48);  //player component render
+	Player.addComponent<SpriteComponent>("gameLoop/gfx/finalPlayer.png",true);
 	//Player.addComponent<KeyboardComtroller>();
 	Player.addComponent<ColliderComponent>("Player");
 	Player.addGroup(groupPlayers);
 
 	//enemy
-	Enemy.addComponent<TransformComponent>(447,447,32,32,3);   //enemy component render
-	Enemy.addComponent<SpriteComponent>("gameloop/gfx/deathEater2-4.png", true);
+	Enemy.addComponent<TransformComponent>(447, 447, 200, 200, 0.48);    //enemy component render
+	Enemy.addComponent<SpriteComponent>("gameloop/gfx/finalEnemy.png", true);
 	//Enemy.addComponent<KeyboardComtroller>();
 	Enemy.addComponent<ColliderComponent>("Enemy");
 	Enemy.addGroup(groupEnemies);
@@ -129,7 +131,10 @@ void Game::update()
 {
 	manager.refresh();
 	manager.update();
-	updateCounter++;
+	if (startMapMovement == true)
+	{
+		updateCounter++;
+	}
 	std::cout << updateCounter << std::endl;
 	//backround moving 
 	Vector2D pVel = Player.getComponent<TransformComponent>().velocity;
@@ -140,18 +145,28 @@ void Game::update()
 		if (startMapMovement == true)
 		{
 			t->getComponent<TileComponent>().destRect.x += -2;//-(pVel.x * pSpeed);
-			if (hitCount >= 3 || updateCounter >= 1400)
-				break;
 		}
-		//t->getComponent<TileComponent>().destRect.y += -1;//-()
+
+		if (hitCount >= 3)
+		{
+			Enemy.getComponent<SpriteComponent>().Play("Dead");
+			break;
+		}
+
+		else if (updateCounter >= 1400)
+		{
+			Enemy.getComponent<TransformComponent>().velocity.x = 1;
+			break;
+		}
+		else
+			continue;
 	}
 
 	if (Collision::AABB(Ball.getComponent<ColliderComponent>().collider, Enemy.getComponent<ColliderComponent>().collider))
 	{
+		ballMoving = false;
 		Ball.getComponent<TransformComponent>().position.x = tempXBall;
 		Ball.getComponent<TransformComponent>().position.y = tempYBall;
-		std::cout << "HIT" << std::endl;
-		hitCount++;
 	}
 	
 	//if (Collision::AABB(Player.getComponent<ColliderComponent>().collider,
@@ -175,8 +190,11 @@ void Game::render()
 	SDL_RenderClear(renderer);
 	startTexture = TextureManager::LoadTexture("gameLoop/gfx/start.png");
 	TextureManager::Draw(startTexture, srcStart, destStart, SDL_FLIP_NONE);
-	finishTexture = TextureManager::LoadTexture("gameLoop/gfx/finish.png");
-	TextureManager::Draw(finishTexture, srcFinish, destFinish, SDL_FLIP_NONE);
+	if (updateCounter >= 1200)
+	{
+		finishTexture = TextureManager::LoadTexture("gameLoop/gfx/finish.png");
+		TextureManager::Draw(finishTexture, srcFinish, destFinish, SDL_FLIP_NONE);
+	}
 	for (auto& t : tiles)
 	{
 		t->draw();

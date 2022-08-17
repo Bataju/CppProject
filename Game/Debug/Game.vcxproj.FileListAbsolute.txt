@@ -1,3 +1,4 @@
 C:\Hogwarts_0.3\Game\Debug\Game.exe
 D:\bachelor\3rd sem\opp\project\Hogwarts_0.3\Game\Debug\Game.exe
 E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\Game\Debug\Game.exe
+D:\workspace\CppProject\Game\Debug\Game.exe

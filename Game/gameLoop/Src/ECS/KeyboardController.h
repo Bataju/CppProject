@@ -9,6 +9,7 @@ extern int updateCounter;
 extern int tempXBall;
 extern int tempYBall;
 extern bool startMapMovement;
+extern bool ballMoving;
 
 class KeyboardComtroller : public Component
 {
@@ -26,7 +27,7 @@ public:
 	{
 		if (Game::event.type == SDL_KEYDOWN)
 		{
-			if (hitCount < 3 && updateCounter<=1400)
+			if (hitCount < 3 && updateCounter<=1300)
 			{
 				switch (Game::event.key.keysym.sym)
 				{
@@ -34,32 +35,39 @@ public:
 					startMapMovement = true;
 					break;
 				case SDLK_h:
-					transform->velocity.y = 1;
-					transform->velocity.x = 1;
-					tempXBall = transform->position.x;
-					tempYBall = transform->position.y;
+					if (startMapMovement == true)
+					{
+						ballMoving = true;
+						tempXBall = transform->position.x;
+						tempYBall = transform->position.y;
+						transform->velocity.y = 1;
+						transform->velocity.x = 1;
+					}
 					break;
 				case SDLK_SPACE:
 				{
-					ballPosition++;
-					if (ballPosition % 3 == 0)//1
+					if (startMapMovement == true && ballMoving == false)
 					{
-						transform->position.x = 170;
-						transform->position.y = 130;
-						//transform->velocity.x = -1;
-						//transform->velocity.y = 1;
-					}
-					else if(ballPosition%3 == 1)//2
-					{
-						transform->position.x = 150;
-						transform->position.y = 150;
-						//transform->velocity.x = 1;
-						//transform->velocity.y = -1;
-					}
-					else//3-ballPosition
-					{
-						transform->position.x = 130;
-						transform->position.y = 170;
+						ballPosition++;
+						if (ballPosition % 3 == 0)//1
+						{
+							transform->position.x = 170;
+							transform->position.y = 130;
+							//transform->velocity.x = -1;
+							//transform->velocity.y = 1;
+						}
+						else if (ballPosition % 3 == 1)//2
+						{
+							transform->position.x = 150;
+							transform->position.y = 150;
+							//transform->velocity.x = 1;
+							//transform->velocity.y = -1;
+						}
+						else//3-ballPosition
+						{
+							transform->position.x = 130;
+							transform->position.y = 170;
+						}
 					}
 					break;
 				}
@@ -85,18 +93,25 @@ public:
 						startMapMovement = true;
 						break;
 					case SDLK_h:
-						transform->velocity.y = 1;
-						transform->velocity.x = 1;
-						ballPosition = 0;
-						if (transform->position.y >= 640) //to bring back the ball if ghost is not hit
+						if (startMapMovement == true)
 						{
-							transform->position.x = tempXBall;
-							transform->position.y = tempYBall;
+							transform->velocity.y = 1;
+							transform->velocity.x = 1;
+							//ballPosition = 0;
+							if (transform->position.y >= 640 - (64 * 2)) //to bring back the ball if ghost is not hit
+							{
+								transform->position.x = tempXBall;
+								transform->position.y = tempYBall;
+								ballMoving = false;
+							}
 						}
 						break;
 					case SDLK_SPACE:
-						transform->velocity.y = 0;
-						transform->velocity.x = 0;
+						if (startMapMovement == true && ballMoving==false)
+						{
+							transform->velocity.y = 0;
+							transform->velocity.x = 0;
+						}
 					default:
 						break;
 					}

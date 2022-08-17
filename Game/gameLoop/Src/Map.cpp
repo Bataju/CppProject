@@ -14,24 +14,24 @@ void Map::LoadMap(std::string path, int sizeX, int sizeY, int loop)
 {
 	char c;
 	std::fstream mapFile;
-	int xij, yij=0;
+	int xij, yij = 0;
 
-		mapFile.open(path);
-		int srcX, srcY;
-		for (int y = 0; y < sizeY; y++)
+	mapFile.open(path);
+	int srcX, srcY;
+	for (int y = 0; y < sizeY; y++)
+	{
+		for (int x = 0; x < sizeX; x++)
 		{
-			for (int x = 0; x < sizeX; x++)
-			{
-				xij = sizeX*loop + x;
-				mapFile.get(c);
-				srcY = atoi(&c) * 32;
-				mapFile.get(c);
-				srcX = atoi(&c) * 32;
-				Game::addTile(srcX, srcY, xij * 64, y * 64);  //Tile size
-				mapFile.ignore();	
-			}
+			xij = sizeX * loop + x;
+			mapFile.get(c);
+			srcY = atoi(&c) * 32;
+			mapFile.get(c);
+			srcX = atoi(&c) * 32;
+			Game::addTile(srcX, srcY, xij * 64, y * 64);  //Tile size
+			mapFile.ignore();
 		}
-		mapFile.close();
+	}
+	mapFile.close();
 }
 
 //single tile system

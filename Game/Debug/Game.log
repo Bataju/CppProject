@@ -1,30 +1,24 @@
 ﻿  Collision.cpp
-E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\Game\gameLoop\Src\ECS\KeyboardController.h(39,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\Game\gameLoop\Src\ECS\KeyboardController.h(40,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\Game\gameLoop\Src\ECS\KeyboardController.h(93,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\Game\gameLoop\Src\ECS\KeyboardController.h(94,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  ECS.cpp
+D:\workspace\CppProject\Game\gameLoop\Src\ECS\KeyboardController.h(39,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\workspace\CppProject\Game\gameLoop\Src\ECS\KeyboardController.h(40,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\workspace\CppProject\Game\gameLoop\Src\ECS\KeyboardController.h(93,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\workspace\CppProject\Game\gameLoop\Src\ECS\KeyboardController.h(94,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Game.cpp
-E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\Game\gameLoop\Src\ECS\KeyboardController.h(39,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\Game\gameLoop\Src\ECS\KeyboardController.h(40,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\Game\gameLoop\Src\ECS\KeyboardController.h(93,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\Game\gameLoop\Src\ECS\KeyboardController.h(94,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\Game\gameLoop\Src\Game.cpp(151,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\Game\gameLoop\Src\Game.cpp(152,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\Game\gameLoop\Src\ECS\ECS.h(120,33): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+D:\workspace\CppProject\Game\gameLoop\Src\ECS\KeyboardController.h(39,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\workspace\CppProject\Game\gameLoop\Src\ECS\KeyboardController.h(40,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\workspace\CppProject\Game\gameLoop\Src\ECS\KeyboardController.h(93,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\workspace\CppProject\Game\gameLoop\Src\ECS\KeyboardController.h(94,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\workspace\CppProject\Game\gameLoop\Src\Game.cpp(151,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\workspace\CppProject\Game\gameLoop\Src\Game.cpp(152,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\workspace\CppProject\Game\gameLoop\Src\ECS\ECS.h(120,33): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
           with
           [
               _Ty=int
           ]
-E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\Game\gameLoop\Src\Game.cpp(88): message : see reference to function template instantiation 'T &Entity::addComponent<TransformComponent,int,int,int,int,int>(int &&,int &&,int &&,int &&,int &&)' being compiled
+D:\workspace\CppProject\Game\gameLoop\Src\Game.cpp(88): message : see reference to function template instantiation 'T &Entity::addComponent<TransformComponent,int,int,int,int,int>(int &&,int &&,int &&,int &&,int &&)' being compiled
           with
           [
               T=TransformComponent
           ]
-  GameObject.cpp
-  main.cpp
-  Map.cpp
-  textureManager.cpp
-  Vector2D.cpp
   Generating Code...
-  Game.vcxproj -> E:\downloads\project\Hogwarts_0.3-1\Hogwarts_0.3\Game\Debug\Game.exe
+  Game.vcxproj -> D:\workspace\CppProject\Game\Debug\Game.exe

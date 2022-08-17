@@ -31,15 +31,18 @@ public:
 	{
 		setText(path);
 	}
-	SpriteComponent(const char* path,bool isAnimated)
+
+	SpriteComponent(const char* path, bool isAnimated)
 	{
-		animated = true;
+		animated = isAnimated;
 
 		Animation idle = Animation(0, 4, 100);
-		//Animation walk = Animation(1, 8, 100);
+		Animation move = Animation(1, 4, 100);
+		Animation dead = Animation(2, 4, 100);
 
 		animations.emplace("Idle", idle);
-		//animations.emplace("walk", walk);
+		animations.emplace("Move", move);
+		animations.emplace("Dead", dead);
 
 		Play("Idle");
 		setText(path);
