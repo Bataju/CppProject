@@ -21,10 +21,15 @@ SDL_Event Game::event;
 
 SDL_Texture* Game::startTexture = nullptr;
 SDL_Texture* Game::finishTexture = nullptr;
-SDL_Rect srcStart = { 0, 0, 800,640 };
+/*SDL_Rect srcStart = {0, 0, 800,640};
 SDL_Rect destStart = { 0, 0, 800,640 };
 SDL_Rect srcFinish = { 0, 0, 800, 640 };
-SDL_Rect destFinish = { 0, 0, 800, 640 }; //600=800-200 for xpos of dest rect
+SDL_Rect destFinish = { 0, 0, 800, 640 }; //600=800-200 for xpos of dest rect*/
+
+SDL_Rect srcStart = { 0, 0, 300,640 };
+SDL_Rect destStart = { 0, 0, 300,640 };
+SDL_Rect srcFinish = { 0, 0, 300, 640 };
+SDL_Rect destFinish = { 500, 0, 300, 640 }; //600=800-200 for xpos of dest rect
 
 std::vector<ColliderComponent*> Game::colliders;
 
@@ -158,12 +163,15 @@ void Game::update()
 			Enemy.getComponent<SpriteComponent>().Play("Dead");
 			break;
 		}
-
-		else if (updateCounter >= 1500)
+		else if (updateCounter >= 1350)
 		{
-			Enemy.getComponent<TransformComponent>().velocity.x = 1;
 			break;
 		}
+		else if (updateCounter >= 1300)
+		{
+			Enemy.getComponent<TransformComponent>().velocity.x = 1;
+		}
+		
 		else
 			continue;
 	}
@@ -186,6 +194,7 @@ void Game::update()
 		Ball.getComponent<TransformComponent>().velocity.x = 0;
 		Ball.getComponent<TransformComponent>().velocity.y = 0;*/
 		ballMoving = false;
+		hitCount++;
 		Ball.getComponent<TransformComponent>().position.x = 170;
 		Ball.getComponent<TransformComponent>().position.y = 130;
 		Ball.getComponent<TransformComponent>().velocity.x = 0;
@@ -211,10 +220,13 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	startTexture = TextureManager::LoadTexture("gameLoop/gfx/forest800x640.png");
+	startTexture = TextureManager::LoadTexture("gameLoop/gfx/startForest.png");
 	TextureManager::Draw(startTexture, srcStart, destStart, SDL_FLIP_NONE);
-	//finishTexture = TextureManager::LoadTexture("gameLoop/gfx/forest800x640.png");
-	//TextureManager::Draw(finishTexture, srcFinish, destFinish, SDL_FLIP_NONE);
+	if (updateCounter >= 1200)
+	{
+		finishTexture = TextureManager::LoadTexture("gameLoop/gfx/endForest.png");
+		TextureManager::Draw(finishTexture, srcFinish, destFinish, SDL_FLIP_NONE);
+	}
 	for (auto& t : tiles)
 	{
 		t->draw();
@@ -244,7 +256,7 @@ void Game::clean()
 void Game::addTile(int srcX, int srcY, int xpos, int ypos)
 {
 	auto& tile(manager.addEntity());
-	tile.addComponent<TileComponent>(srcX, srcY, xpos+800, ypos, mapfile);///xpos + 200
+	tile.addComponent<TileComponent>(srcX, srcY, xpos+300, ypos, mapfile);///xpos + 200
 	tile.addGroup(groupMap);
 }
 

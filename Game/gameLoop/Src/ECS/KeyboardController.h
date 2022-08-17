@@ -28,7 +28,7 @@ public:
 	{
 		if (Game::event.type == SDL_KEYDOWN)
 		{
-			if (hitCount < 3 && updateCounter<=1500)
+			if (hitCount < 3 && updateCounter<=1400)
 			{
 				switch (Game::event.key.keysym.sym)
 				{
@@ -74,7 +74,7 @@ public:
 						}
 					}
 					break;
-					}
+				}
 				default:
 					break;
 				}
@@ -95,6 +95,12 @@ public:
 					{
 					case SDLK_KP_ENTER:
 						startMapMovement = true;
+						if (transform->position.y >= 640 - (64 * 2)) //to bring back the ball if ghost is not hit
+						{
+							transform->position.x = tempXBall;
+							transform->position.y = tempYBall;
+							ballMoving = false;
+						}
 						break;
 					case SDLK_h:
 						if (startMapMovement == true && ballMoving==true && mapReachedZero==true)
@@ -102,12 +108,12 @@ public:
 							transform->velocity.y = 1;
 							transform->velocity.x = 1;
 							//ballPosition = 0;
-							if (transform->position.y >= 640 - (64 * 2)) //to bring back the ball if ghost is not hit
-							{
-								transform->position.x = tempXBall;
-								transform->position.y = tempYBall;
-								ballMoving = false;
-							}
+						}
+						if (transform->position.y >= 640 - (64 * 2)) //to bring back the ball if ghost is not hit
+						{
+							transform->position.x = tempXBall;
+							transform->position.y = tempYBall;
+							ballMoving = false;
 						}
 						break;
 					case SDLK_SPACE:
@@ -116,6 +122,13 @@ public:
 							transform->velocity.y = 0;
 							transform->velocity.x = 0;
 						}
+						if (transform->position.y >= 640 - (64 * 2)) //to bring back the ball if ghost is not hit
+						{
+							transform->position.x = tempXBall;
+							transform->position.y = tempYBall;
+							ballMoving = false;
+						}
+						break;
 					default:
 						break;
 					}
