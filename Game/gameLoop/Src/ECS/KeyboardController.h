@@ -10,6 +10,7 @@ extern int tempXBall;
 extern int tempYBall;
 extern bool startMapMovement;
 extern bool ballMoving;
+extern bool mapReachedZero;
 
 class KeyboardComtroller : public Component
 {
@@ -35,18 +36,21 @@ public:
 					startMapMovement = true;
 					break;
 				case SDLK_h:
-					if (startMapMovement == true)
+					if (startMapMovement == true && mapReachedZero==true)
 					{
 						ballMoving = true;
-						tempXBall = transform->position.x;
-						tempYBall = transform->position.y;
+						if (transform->velocity.x == 0 && transform->velocity.y == 0)
+						{
+							tempXBall = transform->position.x;
+							tempYBall = transform->position.y;
+						}
 						transform->velocity.y = 1;
 						transform->velocity.x = 1;
 					}
 					break;
 				case SDLK_SPACE:
 				{
-					if (startMapMovement == true && ballMoving == false)
+					if (startMapMovement == true && ballMoving == false)//player can aim the ball even when map has not started 
 					{
 						ballPosition++;
 						if (ballPosition % 3 == 0)//1
@@ -70,7 +74,7 @@ public:
 						}
 					}
 					break;
-				}
+					}
 				default:
 					break;
 				}
@@ -93,7 +97,7 @@ public:
 						startMapMovement = true;
 						break;
 					case SDLK_h:
-						if (startMapMovement == true && ballMoving==true)
+						if (startMapMovement == true && ballMoving==true && mapReachedZero==true)
 						{
 							transform->velocity.y = 1;
 							transform->velocity.x = 1;
@@ -107,7 +111,7 @@ public:
 						}
 						break;
 					case SDLK_SPACE:
-						if (startMapMovement == true && ballMoving==false)
+						if (startMapMovement == true && ballMoving==false && mapReachedZero==true)
 						{
 							transform->velocity.y = 0;
 							transform->velocity.x = 0;

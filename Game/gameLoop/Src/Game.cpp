@@ -14,16 +14,17 @@ int tempXBall;
 int tempYBall;
 bool startMapMovement = false;
 bool ballMoving = false;
+bool mapReachedZero = false;
 
 SDL_Renderer* Game::renderer = nullptr;            //we can reassign
 SDL_Event Game::event;
 
 SDL_Texture* Game::startTexture = nullptr;
 SDL_Texture* Game::finishTexture = nullptr;
-SDL_Rect srcStart = { 0, 0, 200,640 };
-SDL_Rect destStart = { 0, 0, 200,640 };
-SDL_Rect srcFinish = { 0, 0, 200, 640 };
-SDL_Rect destFinish = { 600, 0, 200, 640 }; //600=800-200 for xpos of dest rect
+SDL_Rect srcStart = { 0, 0, 800,640 };
+SDL_Rect destStart = { 0, 0, 800,640 };
+SDL_Rect srcFinish = { 0, 0, 800, 640 };
+SDL_Rect destFinish = { 0, 0, 800, 640 }; //600=800-200 for xpos of dest rect
 
 std::vector<ColliderComponent*> Game::colliders;
 
@@ -101,8 +102,9 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 	Enemy.addGroup(groupEnemies);
 
 	//ball
-	Ball.addComponent<TransformComponent>(170, 130, 32, 32, 1);
-	Ball.addComponent<SpriteComponent>("gameloop/gfx/ball 32.png", true);
+	Ball.addComponent<TransformComponent>(170, 130, 200, 200, 0.16);
+	//Ball.addComponent<SpriteComponent>("gameloop/gfx/ballNewDark.png", true);
+	Ball.addComponent<SpriteComponent>("gameloop/gfx/powerball.png", true).Play("Move");
 	Ball.addComponent<KeyboardComtroller>();
 	Ball.addComponent<ColliderComponent>("Ball");
 	Ball.addGroup(groupColliders);
@@ -131,7 +133,7 @@ void Game::update()
 {
 	manager.refresh();
 	manager.update();
-	if (startMapMovement == true)
+	if (startMapMovement == true && mapReachedZero == true)
 	{
 		updateCounter++;
 	}
@@ -145,6 +147,10 @@ void Game::update()
 		if (startMapMovement == true)
 		{
 			t->getComponent<TileComponent>().destRect.x += -2;//-(pVel.x * pSpeed);
+			if (t->getComponent<TileComponent>().destRect.x == 0)
+			{
+				mapReachedZero = true;//TRUE FOREVER
+			}
 		}
 
 		if (hitCount >= 3)
@@ -153,7 +159,7 @@ void Game::update()
 			break;
 		}
 
-		else if (updateCounter >= 1400)
+		else if (updateCounter >= 1500)
 		{
 			Enemy.getComponent<TransformComponent>().velocity.x = 1;
 			break;
@@ -164,6 +170,21 @@ void Game::update()
 
 	if (Collision::AABB(Ball.getComponent<ColliderComponent>().collider, Enemy.getComponent<ColliderComponent>().collider))
 	{
+		/*ballMoving = false;
+		if (hitCount % 2 == 0)
+		{
+			Enemy.getComponent<TransformComponent>().position.x = 447;
+			Enemy.getComponent<TransformComponent>().position.y = 447;
+		}
+		else
+		{
+			Enemy.getComponent<TransformComponent>().position.x = 467;
+			Enemy.getComponent<TransformComponent>().position.y = 427;
+		}
+		Ball.getComponent<TransformComponent>().position.x = 170;
+		Ball.getComponent<TransformComponent>().position.y = 130;
+		Ball.getComponent<TransformComponent>().velocity.x = 0;
+		Ball.getComponent<TransformComponent>().velocity.y = 0;*/
 		ballMoving = false;
 		Ball.getComponent<TransformComponent>().position.x = 170;
 		Ball.getComponent<TransformComponent>().position.y = 130;
@@ -190,13 +211,10 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	startTexture = TextureManager::LoadTexture("gameLoop/gfx/start.png");
+	startTexture = TextureManager::LoadTexture("gameLoop/gfx/forest800x640.png");
 	TextureManager::Draw(startTexture, srcStart, destStart, SDL_FLIP_NONE);
-	if (updateCounter >= 1200)
-	{
-		finishTexture = TextureManager::LoadTexture("gameLoop/gfx/finish.png");
-		TextureManager::Draw(finishTexture, srcFinish, destFinish, SDL_FLIP_NONE);
-	}
+	//finishTexture = TextureManager::LoadTexture("gameLoop/gfx/forest800x640.png");
+	//TextureManager::Draw(finishTexture, srcFinish, destFinish, SDL_FLIP_NONE);
 	for (auto& t : tiles)
 	{
 		t->draw();
@@ -226,7 +244,7 @@ void Game::clean()
 void Game::addTile(int srcX, int srcY, int xpos, int ypos)
 {
 	auto& tile(manager.addEntity());
-	tile.addComponent<TileComponent>(srcX, srcY, xpos+200, ypos, mapfile);///xpos + 200
+	tile.addComponent<TileComponent>(srcX, srcY, xpos+800, ypos, mapfile);///xpos + 200
 	tile.addGroup(groupMap);
 }
 
