@@ -27,7 +27,7 @@ public:
 	{
 		if (Game::event.type == SDL_KEYDOWN)
 		{
-			if (hitCount < 3 && updateCounter<=1300)
+			if (hitCount < 3 && updateCounter<=1500)
 			{
 				switch (Game::event.key.keysym.sym)
 				{
@@ -93,7 +93,7 @@ public:
 						startMapMovement = true;
 						break;
 					case SDLK_h:
-						if (startMapMovement == true)
+						if (startMapMovement == true && ballMoving==true)
 						{
 							transform->velocity.y = 1;
 							transform->velocity.x = 1;

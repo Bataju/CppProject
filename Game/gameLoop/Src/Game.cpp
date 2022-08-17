@@ -47,7 +47,7 @@ enum groupLables : std::size_t
 
 auto& tiles(manager.getGroup(groupMap));
 auto& Players(manager.getGroup(groupPlayers));
-auto& enimies(manager.getGroup(groupEnemies));
+auto& enemies(manager.getGroup(groupEnemies));
 auto& ball(manager.getGroup(groupColliders));
 
 
@@ -165,8 +165,10 @@ void Game::update()
 	if (Collision::AABB(Ball.getComponent<ColliderComponent>().collider, Enemy.getComponent<ColliderComponent>().collider))
 	{
 		ballMoving = false;
-		Ball.getComponent<TransformComponent>().position.x = tempXBall;
-		Ball.getComponent<TransformComponent>().position.y = tempYBall;
+		Ball.getComponent<TransformComponent>().position.x = 170;
+		Ball.getComponent<TransformComponent>().position.y = 130;
+		Ball.getComponent<TransformComponent>().velocity.x = 0;
+		Ball.getComponent<TransformComponent>().velocity.y = 0;
 	}
 	
 	//if (Collision::AABB(Player.getComponent<ColliderComponent>().collider,
@@ -207,7 +209,7 @@ void Game::render()
 	{
 		b->draw();
 	}
-	for (auto& e : enimies)
+	for (auto& e : enemies)
 	{
 		e->draw();
 	}
