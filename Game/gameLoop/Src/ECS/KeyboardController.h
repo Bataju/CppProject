@@ -27,7 +27,7 @@ public:
 			{
 				switch (Game::event.key.keysym.sym)
 				{
-				case SDLK_KP_ENTER:
+				case SDLK_RETURN:
 					Map::startMapMovement = true;
 					break;
 				case SDLK_h:
@@ -88,7 +88,7 @@ public:
 				{
 					switch (Game::event.key.keysym.sym)
 					{
-					case SDLK_KP_ENTER:
+					case SDLK_RETURN:
 						Map::startMapMovement = true;
 						if (transform->position.y >= 640 - (64 * 2)) //to bring back the ball if ghost is not hit
 						{

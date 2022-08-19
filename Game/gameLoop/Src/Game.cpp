@@ -13,6 +13,7 @@ int Collision::hitCount = 0;
 int Game::updateCounter = 0;
 bool Map::startMapMovement = false;
 bool Game::ballMoving = false;
+bool Game::isRunning = false;
 
 SDL_Renderer* Game::renderer = nullptr;            //we can reassign
 SDL_Event Game::event;

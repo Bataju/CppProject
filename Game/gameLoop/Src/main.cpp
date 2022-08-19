@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
 
 	dashboard = new Dashboard();
 	dashboard->dashInit("Dashboard", 800, 640, false);
+
 	while (dashboard->dashRunning())
 	{
 		frameStart = SDL_GetTicks();
@@ -21,6 +22,24 @@ int main(int argc, char *argv[])
 		dashboard->dashHandleEvents();
 		dashboard->dashUpdate();
 		dashboard->dashRender();
+
+		SDL_PollEvent(&Dashboard::dashEvent);
+		switch (Dashboard::dashEvent.type)
+		{
+		case SDL_QUIT:
+			dashboard->isDashRunning = false;
+			break;
+		default:
+			break;
+		}
+		switch(Dashboard::dashEvent.key.keysym.sym)
+		{
+		case SDLK_ESCAPE:
+			dashboard->isDashRunning = false;
+			break;
+		default:
+			break;
+		}
 
 		frameTime = SDL_GetTicks() - frameStart;
 

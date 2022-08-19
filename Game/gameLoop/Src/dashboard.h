@@ -24,8 +24,8 @@ public:
     static SDL_Event dashEvent;
     static SDL_Texture* dashTexture;
     static SDL_Renderer* dashRenderer;
+    bool isDashRunning;
 
 protected:
-    bool isDashRunning;
     SDL_Window* dashWindow;
 };

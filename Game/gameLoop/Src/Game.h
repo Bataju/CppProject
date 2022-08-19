@@ -27,10 +27,10 @@ public:
 	static SDL_Event event;
 	static std::vector<ColliderComponent*>colliders;
 	static int updateCounter;
+	static bool isRunning;
 	static bool ballMoving;
 
 private:
-	bool isRunning = false;
 	int cnt = 0;
 	SDL_Window *window;
 };
