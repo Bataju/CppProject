@@ -17,6 +17,7 @@ bool Game::ballMoving = false;
 SDL_Renderer* Game::renderer = nullptr;            //we can reassign
 SDL_Event Game::event;
 
+
 /*SDL_Texture* Game::startTexture = nullptr;
 SDL_Texture* Game::finishTexture = nullptr;*/
 /*SDL_Rect srcStart = {0, 0, 800,640};

@@ -26,8 +26,6 @@ public:
 	static SDL_Renderer* renderer;
 	static SDL_Event event;
 	static std::vector<ColliderComponent*>colliders;
-	static SDL_Texture* startTexture;
-	static SDL_Texture* finishTexture;
 	static int updateCounter;
 	static bool ballMoving;
 
