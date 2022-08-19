@@ -85,22 +85,21 @@ void Dashboard::dashHandleEvents()
 }
 void Dashboard::dashUpdate()
 {
-    buttonArray = new Button[6];//dynamically
-    buttonArray[0].displayButton("gameLoop/gfx/playButton.png", 30, 30, 200, 50);
-    buttonArray[1].displayButton("gameLoop/gfx/quitButton.png", 30, 110, 200, 50);
-    buttonArray[2].displayButton("gameLoop/gfx/helpButton.png", 30, 190, 200, 50);
-    SDL_RenderPresent(dashRenderer);
     //buttonArray[3] = Button("Play", "gameLoop/gfx/playUpdated.png", 30, 30, 200, 50);
    // buttonArray[4] = Button("Quit", "gameLoop/gfx/quitUpdated.png", 110, 110, 200, 50);
    // buttonArray[5] = Button("Help", "gameLoop/gfx/helpUpdated.png", 190, 190, 200, 50);
 }
 void Dashboard::dashRender()
 {
+    buttonArray = new Button[6];//dynamically
     SDL_RenderClear(dashRenderer);
     SDL_Surface* tempSurface = IMG_Load("gameLoop/gfx/dashboard-min.png");
     dashTexture = SDL_CreateTextureFromSurface(dashRenderer, tempSurface);
-    SDL_FreeSurface(tempSurface);
     SDL_RenderCopyEx(dashRenderer, dashTexture, &srcRect, &destRect, NULL, NULL, SDL_FLIP_NONE);
+    buttonArray[0].displayButton("gameLoop/gfx/playButton.png", 30, 30, 200, 50);
+    buttonArray[1].displayButton("gameLoop/gfx/quitButton.png", 30, 110, 200, 50);
+    buttonArray[2].displayButton("gameLoop/gfx/helpButton.png", 30, 190, 200, 50);
+    SDL_RenderPresent(dashRenderer);
 }
 
 void Dashboard::dashClean()
