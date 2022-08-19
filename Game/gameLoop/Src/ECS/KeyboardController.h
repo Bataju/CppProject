@@ -10,7 +10,7 @@ extern int tempXBall;
 extern int tempYBall;
 extern bool startMapMovement;
 extern bool ballMoving;
-extern bool mapReachedZero;
+//extern bool mapReachedZero;
 
 class KeyboardComtroller : public Component
 {
@@ -28,7 +28,7 @@ public:
 	{
 		if (Game::event.type == SDL_KEYDOWN)
 		{
-			if (hitCount < 3 && updateCounter<=1400)
+			if (hitCount < 3)
 			{
 				switch (Game::event.key.keysym.sym)
 				{
@@ -36,7 +36,7 @@ public:
 					startMapMovement = true;
 					break;
 				case SDLK_h:
-					if (startMapMovement == true && mapReachedZero==true)
+					if (startMapMovement == true && updateCounter<=1500)// && mapReachedZero==true
 					{
 						ballMoving = true;
 						if (transform->velocity.x == 0 && transform->velocity.y == 0)
@@ -50,7 +50,7 @@ public:
 					break;
 				case SDLK_SPACE:
 				{
-					if (startMapMovement == true && ballMoving == false)//player can aim the ball even when map has not started 
+					if (startMapMovement == true && ballMoving == false && updateCounter <= 1500)//player can aim the ball even when map has not started 
 					{
 						ballPosition++;
 						if (ballPosition % 3 == 0)//1
@@ -103,7 +103,7 @@ public:
 						}
 						break;
 					case SDLK_h:
-						if (startMapMovement == true && ballMoving==true && mapReachedZero==true)
+						if (startMapMovement == true && ballMoving==true)// && mapReachedZero==true
 						{
 							transform->velocity.y = 1;
 							transform->velocity.x = 1;
@@ -117,7 +117,7 @@ public:
 						}
 						break;
 					case SDLK_SPACE:
-						if (startMapMovement == true && ballMoving==false && mapReachedZero==true)
+						if (startMapMovement == true && ballMoving==false)// && mapReachedZero==true
 						{
 							transform->velocity.y = 0;
 							transform->velocity.x = 0;

@@ -26,10 +26,10 @@ SDL_Rect destStart = { 0, 0, 800,640 };
 SDL_Rect srcFinish = { 0, 0, 800, 640 };
 SDL_Rect destFinish = { 0, 0, 800, 640 }; //600=800-200 for xpos of dest rect*/
 
-SDL_Rect srcStart = { 0, 0, 300,640 };
+/*SDL_Rect srcStart = {0, 0, 300,640};
 SDL_Rect destStart = { 0, 0, 300,640 };
 SDL_Rect srcFinish = { 0, 0, 300, 640 };
-SDL_Rect destFinish = { 500, 0, 300, 640 }; //600=800-200 for xpos of dest rect
+SDL_Rect destFinish = { 500, 0, 300, 640 }; //600=800-200 for xpos of dest rect*/
 
 std::vector<ColliderComponent*> Game::colliders;
 
@@ -40,7 +40,7 @@ auto& Ball(manager.addEntity());
 
 //auto& wall(manager.addEntity());
 
-const char* mapfile = "gameLoop/dev/map_tile.png";
+const char* mapfile = "gameLoop/gfx/finalMapTile64.png";
 
 enum groupLables : std::size_t
 {
@@ -85,11 +85,14 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 	}
 	
 	map = new Map();
-	for (int i = 0; i < 2; i++)
+	static int loop;
+
+	for (loop = 0; loop < 4; loop++)
 	{
-		//Map::LoadMap("gameLoop/dev/startEnd.map", 4, 10, 0);
-		Map::LoadMap("gameLoop/dev/pixel_16x16.map", 25, 10, i);
-		//Map::LoadMap("gameLoop/dev/startEnd.map", 4, 10, 2);
+		if (loop == 0 || loop == 3)
+			map->LoadMap("gameLoop/gfx/startEnd.map", 5, 10, loop);
+		else
+			map->LoadMap("gameLoop/gfx/finalMap64.map", 25, 10, loop);
 	}
 
 	//player
@@ -138,7 +141,7 @@ void Game::update()
 {
 	manager.refresh();
 	manager.update();
-	if (startMapMovement == true && mapReachedZero == true)
+	if (startMapMovement == true)
 	{
 		updateCounter++;
 	}
@@ -152,10 +155,10 @@ void Game::update()
 		if (startMapMovement == true)
 		{
 			t->getComponent<TileComponent>().destRect.x += -2;//-(pVel.x * pSpeed);
-			if (t->getComponent<TileComponent>().destRect.x == 0)
+			/**f (t->getComponent<TileComponent>().destRect.x == 0)
 			{
 				mapReachedZero = true;//TRUE FOREVER
-			}
+			}*/
 		}
 
 		if (hitCount >= 3)
@@ -163,13 +166,10 @@ void Game::update()
 			Enemy.getComponent<SpriteComponent>().Play("Dead");
 			break;
 		}
-		else if (updateCounter >= 1350)
-		{
-			break;
-		}
-		else if (updateCounter >= 1300)
+		else if (updateCounter >= 1500)
 		{
 			Enemy.getComponent<TransformComponent>().velocity.x = 1;
+			break;
 		}
 		
 		else
@@ -220,13 +220,13 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	startTexture = TextureManager::LoadTexture("gameLoop/gfx/startForest.png");
+	/*startTexture = TextureManager::LoadTexture("gameLoop/gfx/startForest.png");
 	TextureManager::Draw(startTexture, srcStart, destStart, SDL_FLIP_NONE);
 	if (updateCounter >= 1200)
 	{
 		finishTexture = TextureManager::LoadTexture("gameLoop/gfx/endForest.png");
 		TextureManager::Draw(finishTexture, srcFinish, destFinish, SDL_FLIP_NONE);
-	}
+	}*/
 	for (auto& t : tiles)
 	{
 		t->draw();
@@ -256,7 +256,7 @@ void Game::clean()
 void Game::addTile(int srcX, int srcY, int xpos, int ypos)
 {
 	auto& tile(manager.addEntity());
-	tile.addComponent<TileComponent>(srcX, srcY, xpos+300, ypos, mapfile);///xpos + 200
+	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos, mapfile);///xpos + 200
 	tile.addGroup(groupMap);
 }
 
