@@ -8,19 +8,17 @@
 
 Map* map;
 Manager manager;
-int hitCount = 0;
-int updateCounter = 0;
-int tempXBall;
-int tempYBall;
-bool startMapMovement = false;
-bool ballMoving = false;
-bool mapReachedZero = false;
+
+int Collision::hitCount = 0;
+int Game::updateCounter = 0;
+bool Map::startMapMovement = false;
+bool Game::ballMoving = false;
 
 SDL_Renderer* Game::renderer = nullptr;            //we can reassign
 SDL_Event Game::event;
 
-SDL_Texture* Game::startTexture = nullptr;
-SDL_Texture* Game::finishTexture = nullptr;
+/*SDL_Texture* Game::startTexture = nullptr;
+SDL_Texture* Game::finishTexture = nullptr;*/
 /*SDL_Rect srcStart = {0, 0, 800,640};
 SDL_Rect destStart = { 0, 0, 800,640 };
 SDL_Rect srcFinish = { 0, 0, 800, 640 };
@@ -32,7 +30,6 @@ SDL_Rect srcFinish = { 0, 0, 300, 640 };
 SDL_Rect destFinish = { 500, 0, 300, 640 }; //600=800-200 for xpos of dest rect*/
 
 std::vector<ColliderComponent*> Game::colliders;
-
 
 auto& Player(manager.addEntity());  //creating our player
 auto& Enemy(manager.addEntity());  //creating our enemy
@@ -141,18 +138,18 @@ void Game::update()
 {
 	manager.refresh();
 	manager.update();
-	if (startMapMovement == true)
+	if (Map::startMapMovement == true)
 	{
-		updateCounter++;
+		Game::updateCounter++;
 	}
-	std::cout << updateCounter << std::endl;
+	std::cout << Game::updateCounter << std::endl;
 	//backround moving 
 	Vector2D pVel = Player.getComponent<TransformComponent>().velocity;
 	int pSpeed = Player.getComponent<TransformComponent>().speed;
 
 	for (auto t : tiles)
 	{
-		if (startMapMovement == true)
+		if (Map::startMapMovement == true)
 		{
 			t->getComponent<TileComponent>().destRect.x += -2;//-(pVel.x * pSpeed);
 			/**f (t->getComponent<TileComponent>().destRect.x == 0)
@@ -161,12 +158,12 @@ void Game::update()
 			}*/
 		}
 
-		if (hitCount >= 3)
+		if (Collision::hitCount >= 3)
 		{
 			Enemy.getComponent<SpriteComponent>().Play("Dead");
 			break;
 		}
-		else if (updateCounter >= 1500)
+		else if (Game::updateCounter >= 1500)
 		{
 			Enemy.getComponent<TransformComponent>().velocity.x = 1;
 			break;
@@ -193,8 +190,7 @@ void Game::update()
 		Ball.getComponent<TransformComponent>().position.y = 130;
 		Ball.getComponent<TransformComponent>().velocity.x = 0;
 		Ball.getComponent<TransformComponent>().velocity.y = 0;*/
-		ballMoving = false;
-		hitCount++;
+		Game::ballMoving = false;
 		Ball.getComponent<TransformComponent>().position.x = 170;
 		Ball.getComponent<TransformComponent>().position.y = 130;
 		Ball.getComponent<TransformComponent>().velocity.x = 0;

@@ -3,19 +3,14 @@
 #include "../Game.h"
 #include "ECS.h"
 #include "Components.h"
-
-extern int hitCount;
-extern int updateCounter;
-extern int tempXBall;
-extern int tempYBall;
-extern bool startMapMovement;
-extern bool ballMoving;
-//extern bool mapReachedZero;
+#include "../Collision.h"
+#include "../Map.h"
 
 class KeyboardComtroller : public Component
 {
 public:
 	int ballPosition = 0;
+	int tempXBall, tempYBall;
 	TransformComponent* transform;
 	SpriteComponent* sprite;
 	void init() override
@@ -28,17 +23,17 @@ public:
 	{
 		if (Game::event.type == SDL_KEYDOWN)
 		{
-			if (hitCount < 3)
+			if (Collision::hitCount < 3)
 			{
 				switch (Game::event.key.keysym.sym)
 				{
 				case SDLK_KP_ENTER:
-					startMapMovement = true;
+					Map::startMapMovement = true;
 					break;
 				case SDLK_h:
-					if (startMapMovement == true && updateCounter<=1500)// && mapReachedZero==true
+					if (Map::startMapMovement == true && Game::updateCounter<=1500)// && mapReachedZero==true
 					{
-						ballMoving = true;
+						Game::ballMoving = true;
 						if (transform->velocity.x == 0 && transform->velocity.y == 0)
 						{
 							tempXBall = transform->position.x;
@@ -50,7 +45,7 @@ public:
 					break;
 				case SDLK_SPACE:
 				{
-					if (startMapMovement == true && ballMoving == false && updateCounter <= 1500)//player can aim the ball even when map has not started 
+					if (Map::startMapMovement == true && Game::ballMoving == false && Game::updateCounter<=1500)//player can aim the ball even when map has not started 
 					{
 						ballPosition++;
 						if (ballPosition % 3 == 0)//1
@@ -82,7 +77,7 @@ public:
 		}
 		if (Game::event.type == SDL_KEYUP)
 		{
-			if (hitCount <= 3)
+			if (Collision::hitCount <= 3)
 			{
 				if (transform->position.x == (tempXBall+3) && transform->position.y == (tempYBall+3))
 				{
@@ -94,16 +89,16 @@ public:
 					switch (Game::event.key.keysym.sym)
 					{
 					case SDLK_KP_ENTER:
-						startMapMovement = true;
+						Map::startMapMovement = true;
 						if (transform->position.y >= 640 - (64 * 2)) //to bring back the ball if ghost is not hit
 						{
 							transform->position.x = tempXBall;
 							transform->position.y = tempYBall;
-							ballMoving = false;
+							Game::ballMoving = false;
 						}
 						break;
 					case SDLK_h:
-						if (startMapMovement == true && ballMoving==true)// && mapReachedZero==true
+						if (Map::startMapMovement == true && Game::ballMoving==true)// && mapReachedZero==true
 						{
 							transform->velocity.y = 1;
 							transform->velocity.x = 1;
@@ -113,11 +108,11 @@ public:
 						{
 							transform->position.x = tempXBall;
 							transform->position.y = tempYBall;
-							ballMoving = false;
+							Game::ballMoving = false;
 						}
 						break;
 					case SDLK_SPACE:
-						if (startMapMovement == true && ballMoving==false)// && mapReachedZero==true
+						if (Map::startMapMovement == true && Game::ballMoving==false)// && mapReachedZero==true
 						{
 							transform->velocity.y = 0;
 							transform->velocity.x = 0;
@@ -126,7 +121,7 @@ public:
 						{
 							transform->position.x = tempXBall;
 							transform->position.y = tempYBall;
-							ballMoving = false;
+							Game::ballMoving = false;
 						}
 						break;
 					default:

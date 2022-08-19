@@ -28,7 +28,8 @@ public:
 	static std::vector<ColliderComponent*>colliders;
 	static SDL_Texture* startTexture;
 	static SDL_Texture* finishTexture;
-	
+	static int updateCounter;
+	static bool ballMoving;
 
 private:
 	bool isRunning = false;

@@ -10,6 +10,7 @@ bool Collision::AABB(const SDL_Rect& recA, const SDL_Rect& recB)
 		recA.x == recB.x + 15 && recA.y == recB.y+15 //condition for collision
 	)
 {
+		hitCount++;
 		return true;
 }
 return false;

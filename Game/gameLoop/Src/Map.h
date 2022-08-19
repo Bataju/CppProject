@@ -10,5 +10,5 @@ public:
 	~Map();
 
 	static void LoadMap(std::string path, int sizex, int sizey,int loop);
-
+	static bool startMapMovement;
 };
