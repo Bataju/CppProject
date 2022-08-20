@@ -35,6 +35,14 @@ void Button::handleEvents()
         if (x >= destRect.x && x <= destRect.x + destRect.w && y >= destRect.y && y <= destRect.y + destRect.h)
         {
             isSelected = true;
+
+            /*if (SDL_MOUSEBUTTONDOWN == buttonEvent.type)
+            {
+                if (SDL_BUTTON_LEFT == buttonEvent.button.button)
+                {
+                    Dashboard::isDashRunning = false;
+                }
+            }*/
         }
         else
             isSelected = false;

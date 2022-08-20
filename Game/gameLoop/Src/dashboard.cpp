@@ -9,6 +9,10 @@ SDL_Texture* Dashboard::dashTexture = nullptr;
 SDL_Rect srcRect = { 0, 0, 800, 640 };
 SDL_Rect destRect = { 0, 0, 800, 640 };
 Button* buttonArray;
+bool Dashboard::playClicked = false;
+bool Dashboard::quitClicked = false;
+bool Dashboard::helpClicked = false;
+bool Dashboard::isDashRunning = false;
 
 Dashboard::Dashboard()
 {}

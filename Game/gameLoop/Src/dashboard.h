@@ -24,7 +24,10 @@ public:
     static SDL_Event dashEvent;
     static SDL_Texture* dashTexture;
     static SDL_Renderer* dashRenderer;
-    bool isDashRunning;
+    static bool isDashRunning;
+    static bool playClicked;
+    static bool quitClicked;
+    static bool helpClicked;
 
 protected:
     SDL_Window* dashWindow;
