@@ -17,6 +17,9 @@ bool Game::isRunning = false;
 
 SDL_Renderer* Game::renderer = nullptr;            //we can reassign
 SDL_Event Game::event;
+SDL_Texture* winLoseTexture = nullptr;
+SDL_Rect srcWinLose = { 0, 0, 400,300 };
+SDL_Rect destWinLose = { 200, 180, 400,300 };
 
 
 /*SDL_Texture* Game::startTexture = nullptr;
@@ -65,7 +68,7 @@ Game::~Game()
 void Game::init(const char* title, int width, int height, bool fullscreen)
 {
 	int flags = 0;
-	
+
 	if (fullscreen)
 	{
 		flags = SDL_WINDOW_FULLSCREEN;
@@ -82,7 +85,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 
 		isRunning = true;
 	}
-	
+
 	map = new Map();
 	static int loop;
 
@@ -96,7 +99,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 
 	//player
 	Player.addComponent<TransformComponent>(80, 85, 200, 200, 0.48);  //player component render
-	Player.addComponent<SpriteComponent>("gameLoop/gfx/finalPlayer.png",true);
+	Player.addComponent<SpriteComponent>("gameLoop/gfx/finalPlayer.png", true);
 	//Player.addComponent<KeyboardComtroller>();
 	Player.addComponent<ColliderComponent>("Player");
 	Player.addGroup(groupPlayers);
@@ -128,7 +131,15 @@ void Game::handleEvents()
 
 	switch (event.type)
 	{
-	case SDL_QUIT :
+	case SDL_QUIT:
+		isRunning = false;
+		break;
+	default:
+		break;
+	}
+	switch (event.key.keysym.sym)
+	{
+	case SDLK_ESCAPE:
 		isRunning = false;
 		break;
 	default:
@@ -170,7 +181,7 @@ void Game::update()
 			Enemy.getComponent<TransformComponent>().velocity.x = 1;
 			break;
 		}
-		
+
 		else
 			continue;
 	}
@@ -198,7 +209,7 @@ void Game::update()
 		Ball.getComponent<TransformComponent>().velocity.x = 0;
 		Ball.getComponent<TransformComponent>().velocity.y = 0;
 	}
-	
+
 	//if (Collision::AABB(Player.getComponent<ColliderComponent>().collider,
 	//	wall.getComponent<ColliderComponent>().collider))
 	//{
@@ -240,6 +251,16 @@ void Game::render()
 	for (auto& e : enemies)
 	{
 		e->draw();
+	}
+	if (Collision::hitCount >= 3)
+	{
+		winLoseTexture = TextureManager::LoadTexture("gameLoop/dev/winFinal.png");
+		TextureManager::Draw(winLoseTexture, srcWinLose, destWinLose, SDL_FLIP_NONE);
+	}
+	if (updateCounter >= 1600 && Collision::hitCount < 3)
+	{
+		winLoseTexture = TextureManager::LoadTexture("gameLoop/dev/loseFinal.png");
+		TextureManager::Draw(winLoseTexture, srcWinLose, destWinLose, SDL_FLIP_NONE);
 	}
 	SDL_RenderPresent(renderer);
 }

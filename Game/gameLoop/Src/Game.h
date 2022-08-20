@@ -29,6 +29,7 @@ public:
 	static int updateCounter;
 	static bool isRunning;
 	static bool ballMoving;
+	static bool isComplete;
 
 private:
 	int cnt = 0;
